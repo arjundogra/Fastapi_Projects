@@ -1,5 +1,6 @@
 from database_connection import Base
 from sqlalchemy import String, Integer, Column, Boolean
+from sqlalchemy.orm import relationship
 from pydantic import BaseModel, Field
 
 class Books(Base):
@@ -10,6 +11,7 @@ class Books(Base):
     description = Column(String)
     author = Column(String)
     is_available = Column(Boolean, default=True)
+    borrow_records = relationship("BorrowRecord", back_populates="book")
 
 class BooksRequest(BaseModel):
     name: str = Field(example="User Name")

@@ -1,4 +1,5 @@
 from sqlalchemy import Column, Date, Integer, String
+from sqlalchemy.orm import relationship
 from database_connection import Base
 from pydantic import BaseModel
 from datetime import date
@@ -9,6 +10,7 @@ class Members(Base):
     name = Column(String)
     email = Column(String)
     join_date = Column(Date)
+    borrow_records = relationship("BorrowRecord", back_populates="member")
 
 
 class MemberCreateRequest(BaseModel):
