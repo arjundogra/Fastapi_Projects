@@ -1,0 +1,3 @@
+Rename env to .env and remove this line
+
+DB_URL='Your URL HERE'
