@@ -4,10 +4,13 @@ from routes.books import bookRouter
 from routes.members import memberRouter
 from routes.borrowRecords import borrowRecordRouter
 from middleware import LoggingMiddleware
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 app.add_middleware(LoggingMiddleware)
+app.add_middleware(CORSMiddleware,
+    allow_origins=["*"])
 
 Base.metadata.create_all(engine)
 
