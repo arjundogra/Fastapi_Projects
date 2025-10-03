@@ -3,8 +3,11 @@ from database_connection import Base,engine
 from routes.books import bookRouter
 from routes.members import memberRouter
 from routes.borrowRecords import borrowRecordRouter
+from middleware import LoggingMiddleware
 
 app = FastAPI()
+
+app.add_middleware(LoggingMiddleware)
 
 Base.metadata.create_all(engine)
 
