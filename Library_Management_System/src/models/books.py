@@ -1,5 +1,5 @@
 from database_connection import Base
-from sqlalchemy import String, Integer, Column
+from sqlalchemy import String, Integer, Column, Boolean
 from pydantic import BaseModel, Field
 
 class Books(Base):
@@ -9,6 +9,7 @@ class Books(Base):
     name = Column(String)
     description = Column(String)
     author = Column(String)
+    is_available = Column(Boolean, default=True)
 
 class BooksRequest(BaseModel):
     name: str = Field(example="User Name")
