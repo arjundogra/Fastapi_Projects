@@ -26,6 +26,17 @@ task_manager/
 
 
 
+## Checklist:
+User Authentication
+JWT Token on Login
+Refresh token send via Cookies
+Route for Refresh Token
+
 Users: 
-    Create -> id, email, name, password, created_on
-    Login -> email, password
+    Create -> id, email, name, role, password, created_on
+    Login -> email, password  (Return JWT + Refresh Token)
+    Refresh Token -> endpoint
+
+Tasks:
+    Create -> id, task_name, description, status, due_date , created_on, updated_on, assigned_to, created_by
+

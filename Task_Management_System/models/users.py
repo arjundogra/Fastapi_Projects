@@ -12,3 +12,6 @@ class Users(Base):
     role = Column(String, default='user')
     hashed_password = Column(String)
     created_on = Column(Date,default=func.now())
+
+    created_tasks = relationship("Tasks", back_populates="creator", foreign_keys='Tasks.created_by')
+    assigned_tasks = relationship("Tasks", back_populates="assignee", foreign_keys='Tasks.assigned_to')

@@ -3,7 +3,7 @@ from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
 
-Oauth2 = OAuth2PasswordBearer(tokenUrl="/login")
+Oauth2 = OAuth2PasswordBearer(tokenUrl="/users/token")
 
 ALGORITHM = "HS256"
 SECRET_KEY="138423kjadflajdfklajdfklajdfklajdfklajdfklajdfklajdfk"

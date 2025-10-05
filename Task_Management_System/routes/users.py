@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status, Cookie
 from fastapi.responses import JSONResponse
+from fastapi.security import OAuth2PasswordRequestForm
 import jwt
 from database_connection import get_db
 from sqlalchemy.orm import Session
@@ -86,3 +87,9 @@ async def refresh_token(refresh_token: str = Cookie(None), db: Session = Depends
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials")
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=str(e))
+    
+
+@router.post('/token')
+async def token(req: OAuth2PasswordRequestForm = Depends()):
+    access_token = create_access_token(data={"sub": "1"})
+    return {"access_token": access_token, "token_type": "bearer"}
