@@ -23,3 +23,9 @@ task_manager/
 │── core/
 │    └── security.py   # JWT, refresh token logic
 │── .env
+
+
+
+Users: 
+    Create -> id, email, name, password, created_on
+    Login -> email, password
