@@ -32,6 +32,7 @@ JWT Token on Login
 Refresh token send via Cookies
 Route for Refresh Token
 
+## Schemas
 Users: 
     Create -> id, email, name, role, password, created_on
     Login -> email, password  (Return JWT + Refresh Token)
