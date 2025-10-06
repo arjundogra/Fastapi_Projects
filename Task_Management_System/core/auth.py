@@ -12,7 +12,7 @@ Duration = 60
 
 def create_access_token(data:dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=2)
+    expire = datetime.utcnow() + timedelta(minutes=Duration)
     to_encode.update({"exp":expire,"iat":datetime.utcnow()})
     jwt_token = jwt.encode(to_encode, SECRET_KEY, ALGORITHM)
     return jwt_token

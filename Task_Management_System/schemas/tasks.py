@@ -1,12 +1,12 @@
 from pydantic import BaseModel, Field
-from datetime import date
+from datetime import date, timedelta
 from typing import Optional
 from enum import Enum
 
 class CreateTaskRequest(BaseModel):
     title: str = Field(example="Task Title", min_length=3, max_length=50)
     description: str = Field(example="Task Description", min_length=10, max_length=300)
-    due_date: date = Field(example="2023-12-31")
+    due_date: date = Field(example=date.today() + timedelta(days=7))  # Default due date is one week from today
     assigned_to: Optional[int] = Field(None, example=2)  # User ID of the assignee
     status: Optional[str] = Field('not started', example="not started")  # Default status
     class Config:
