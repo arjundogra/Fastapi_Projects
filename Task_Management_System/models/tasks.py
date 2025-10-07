@@ -6,7 +6,7 @@ from sqlalchemy.sql import func
 class Tasks(Base):
     __tablename__ = 'tasks'
 
-    id = Column(Integer,autoincrement=True,primary_key=True)
+    id = Column(Integer,autoincrement=True,primary_key=True, index=True)
     title = Column(String)
     description = Column(String)
     status = Column(String, default='not started')  # e.g., 'not started', 'in progress', 'completed'

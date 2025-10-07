@@ -34,3 +34,7 @@ class TaskResponseModel(BaseModel):
     class Config:
         orm_mode = True
 
+class TaskStatus(Enum):
+    not_started = "not started"
+    in_progress = "In Progress"
+

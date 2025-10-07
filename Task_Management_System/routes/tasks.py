@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter
 from models.users import Users
 from models.tasks import Tasks
@@ -63,3 +64,11 @@ def delete_task(task_id: int, user_id: int = Depends(verify_access_token), db: S
     db.delete(task)
     db.commit()
     return 
+
+@router.get('/', response_model=list[tasks.TaskResponseModel])
+def get_tasks(page: int,limit:int,status: tasks.TaskStatus | None = None , user_id: int = Depends(verify_access_token), db: Session = Depends(get_db)):
+    if not status:
+        tasks = db.query(Tasks).filter(or_(Tasks.created_by == user_id, Tasks.assigned_to == user_id)).order_by(Tasks.id.asc()).offset((page-1)*limit).limit(limit)
+    else:
+        tasks = db.query(Tasks).filter(or_(Tasks.created_by == user_id, Tasks.assigned_to == user_id)).filter(Tasks.status == status.value).order_by(Tasks.id.asc()).offset((page-1)*limit).limit(limit)
+    return tasks
