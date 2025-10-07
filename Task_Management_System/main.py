@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from routes import users, tasks
 from database_connection import engine, Base
 
-app = FastAPI()
+app = FastAPI(title="Task Management System", version="1.0")
 
 Base.metadata.create_all(bind=engine)
 
