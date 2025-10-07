@@ -2,6 +2,7 @@ from pydantic import BaseModel, Field
 from datetime import date, timedelta
 from typing import Optional
 from enum import Enum
+from schemas.users import ResponseModel
 
 class CreateTaskRequest(BaseModel):
     title: str = Field(example="Task Title", min_length=3, max_length=50)
@@ -34,7 +35,15 @@ class TaskResponseModel(BaseModel):
     class Config:
         orm_mode = True
 
+
+class TaskResponseDetailModel(TaskResponseModel):
+    creator: Optional[ResponseModel] = None
+    assignee: Optional[ResponseModel] = None
+    class Config:
+        orm_mode = True
+
+
 class TaskStatus(Enum):
     not_started = "not started"
     in_progress = "In Progress"
-
+    completed = "Completed"

@@ -49,6 +49,8 @@ def update_task(task_id: int,req: tasks.CreateTaskRequest, user_id: int = Depend
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not autherized")
     new_values = req.model_dump(exclude_unset=True)
     for key,value in new_values.items():
+        if key in ['created_by','created_on','id']:
+            continue
         if hasattr(task,key):
             setattr(task,key,value)
     db.commit()
@@ -65,7 +67,7 @@ def delete_task(task_id: int, user_id: int = Depends(verify_access_token), db: S
     db.commit()
     return 
 
-@router.get('/', response_model=list[tasks.TaskResponseModel])
+@router.get('/', response_model=list[tasks.TaskResponseDetailModel])
 def get_tasks(page: int,limit:int,status: tasks.TaskStatus | None = None , user_id: int = Depends(verify_access_token), db: Session = Depends(get_db)):
     if not status:
         tasks = db.query(Tasks).filter(or_(Tasks.created_by == user_id, Tasks.assigned_to == user_id)).order_by(Tasks.id.asc()).offset((page-1)*limit).limit(limit)

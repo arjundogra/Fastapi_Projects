@@ -2,17 +2,18 @@ import jwt
 from datetime import datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 from fastapi import Depends, HTTPException, status
+import os
 
 Oauth2 = OAuth2PasswordBearer(tokenUrl="/users/token")
 
-ALGORITHM = "HS256"
-SECRET_KEY="138423kjadflajdfklajdfklajdfklajdfklajdfklajdfklajdfk"
-REFERESH_SECRET_KEY="138423kjadflajdfklajdfklajdfklajdfklajdfklajdfklajdfk"
-Duration = 60
+ALGORITHM = os.environ.get("ALGORITHM","HS256")
+SECRET_KEY=os.environ.get("SECRET_KEY","YourSecretKeyHereChangeIt")
+REFERESH_SECRET_KEY=os.environ.get("REFERESH_SECRET_KEY","YourRefereshSecretKeyHereChangeIt")
+Duration = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES",30)
 
 def create_access_token(data:dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(minutes=Duration)
+    expire = datetime.utcnow() + timedelta(minutes=int(Duration))
     to_encode.update({"exp":expire,"iat":datetime.utcnow()})
     jwt_token = jwt.encode(to_encode, SECRET_KEY, ALGORITHM)
     return jwt_token
