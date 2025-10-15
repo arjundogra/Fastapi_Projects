@@ -12,4 +12,5 @@ class Users(Base):
     hashed_password = Column(String)
     created_on = Column(String, default=func.now())
     role = Column(String, default='user')  # e.g., 'user', 'admin'
-    
+
+    files = relationship('Files', back_populates='user')
